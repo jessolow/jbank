@@ -1,88 +1,119 @@
 import Foundation
 import Combine
-import LocalAuthentication
+import Supabase
 
 @MainActor
 class SessionManager: ObservableObject {
     @Published var isLoggedIn = false
     @Published var isLoading = true
-    @Published var currentUser: User?
-    @Published var authError: String?
+    @Published var currentSession: Session?
+    @Published var needsProfileCompletion = false // For Google OAuth new users
 
-    private let authAccount = "currentUser" // A consistent key for keychain storage
+    private var authTask: Task<Void, Never>?
 
     init() {
-        // When the app starts, try to perform a biometric login
-        Task {
-            await tryBiometricLogin()
-        }
-    }
-
-    private func tryBiometricLogin() async {
-        // 1. Check if a token is saved in the keychain
-        // We need an email to look up the token
-        guard let email = UserDefaults.standard.string(forKey: "userEmail"),
-              let token = KeychainManager.shared.read(for: email),
-              let firstName = UserDefaults.standard.string(forKey: "userFirstName"),
-              let lastName = UserDefaults.standard.string(forKey: "userLastName") else {
-            // No saved token, proceed to normal welcome screen
-            self.isLoading = false
-            return
-        }
-
-        // 2. A token exists, so request biometric authentication
-        let context = LAContext()
-        let reason = "Sign in to your jBank account"
-        
-        do {
-            let success = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
-            if success {
-                // 3. Biometric scan successful!
-                // In a real app, you would now validate this token with your server.
-                // For now, we will assume it's valid and log the user in.
-                let savedUser = User(id: "saved-user", email: email, firstName: firstName, lastName: lastName, isVerified: true, createdAt: "", updatedAt: "")
-                self.currentUser = savedUser
-                self.isLoggedIn = true
-                self.isLoading = false
-            } else {
-                // User failed or cancelled the biometric scan
-                self.isLoading = false
+        authTask = Task {
+            for await (event, session) in SupabaseManager.shared.client.auth.authStateChanges {
+                handleAuthStateChange(event: event, session: session)
             }
-        } catch {
-            // Handle errors, e.g., biometrics not available or not set up
-            print("Biometric login error: \(error.localizedDescription)")
-            self.authError = "Biometric login failed. Please sign in manually."
-            self.isLoading = false
         }
     }
     
-    func login(sessionToken: String, user: User) {
-        // After a successful manual login (e.g., OTP)
-        // Note: Biometric setup will handle saving the token upon user consent
-        self.currentUser = user
-        self.isLoggedIn = true
-        self.isLoading = false
-        
-        // Save user's basic info for the next session's biometric login
-        UserDefaults.standard.set(user.email, forKey: "userEmail")
-        UserDefaults.standard.set(user.firstName, forKey: "userFirstName")
-        UserDefaults.standard.set(user.lastName, forKey: "userLastName")
+    deinit {
+        authTask?.cancel()
     }
 
-    func logout() {
-        // Clear session data from this manager
-        self.isLoggedIn = false
-        self.currentUser = nil
+    private func handleAuthStateChange(event: AuthChangeEvent, session: Session?) {
+        print("Auth state changed: \(event)")
         
-        // Use the email of the logged-out user to find the correct keychain entry
-        if let email = UserDefaults.standard.string(forKey: "userEmail") {
-            _ = KeychainManager.shared.delete(for: email)
+        // Update the session
+        self.currentSession = session
+        
+        // For ANY authenticated session (including app startup), validate with backend
+        if let session = session {
+            print("[SessionManager] Session found - validating with backend")
+            print("[SessionManager] Session user: \(session.user.email ?? "no email")")
+            print("[SessionManager] User app metadata: \(session.user.appMetadata)")
+            
+            // Always validate any authenticated user with the backend
+            Task {
+                await self.validateUserWithBackend(user: session.user)
+            }
+        } else {
+            print("[SessionManager] No session - user logged out")
+            self.isLoggedIn = false
+            self.needsProfileCompletion = false
         }
         
-        // Clear the saved token from the keychain and user defaults
-        UserDefaults.standard.removeObject(forKey: "userEmail")
-        UserDefaults.standard.removeObject(forKey: "userFirstName")
-        UserDefaults.standard.removeObject(forKey: "userLastName")
-        print("Session data and keychain token cleared.")
+        // We are no longer loading once we receive our first auth event
+        if isLoading {
+            isLoading = false
+        }
+    }
+    
+    func login(session: Session) {
+        self.currentSession = session
+        self.isLoggedIn = true
+    }
+
+    func logout() async {
+        do {
+            try await SupabaseManager.shared.client.auth.signOut()
+            print("Successfully signed out.")
+        } catch {
+            print("Sign out failed: \(error.localizedDescription)")
+        }
+        self.isLoggedIn = false
+        self.currentSession = nil
+    }
+    
+    func setToLoggedOut() {
+        self.isLoggedIn = false
+        self.currentSession = nil
+        self.isLoading = false
+    }
+    
+    private func validateUserWithBackend(user: User) async {
+        guard let email = user.email else {
+            print("[SessionManager] No email found for user")
+            await MainActor.run {
+                self.isLoggedIn = false
+                self.needsProfileCompletion = false
+            }
+            return
+        }
+        
+        print("[SessionManager] Validating user with backend: \(email)")
+        print("[SessionManager] User ID: \(user.id)")
+        print("[SessionManager] User created at: \(user.createdAt)")
+        
+        do {
+            // Always use backend to determine user status regardless of auth method
+            let userStatus = try await SupabaseManager.shared.checkOAuthUserStatus()
+            print("[SessionManager] Backend user validation: \(userStatus)")
+            
+            await MainActor.run {
+                if userStatus.needs_profile_completion {
+                    print("[SessionManager] Backend says: User needs profile completion")
+                    self.needsProfileCompletion = true
+                    self.isLoggedIn = false
+                } else {
+                    print("[SessionManager] Backend says: User profile is complete - login approved")
+                    self.needsProfileCompletion = false
+                    self.isLoggedIn = true
+                }
+            }
+        } catch {
+            print("[SessionManager] Error validating user with backend: \(error)")
+            print("[SessionManager] Error details: \(error.localizedDescription)")
+            
+            // If the backend can't validate the user (e.g., user doesn't exist), sign them out
+            await MainActor.run {
+                print("[SessionManager] Backend validation failed - signing user out")
+                Task {
+                    await self.logout()
+                }
+            }
+        }
     }
 }

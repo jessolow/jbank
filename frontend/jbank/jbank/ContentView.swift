@@ -15,15 +15,18 @@ struct ContentView: View {
             if sessionManager.isLoading {
                 // Show a loading/splash screen while we check for a session
                 LoadingView()
-            } else if sessionManager.isLoggedIn, let user = sessionManager.currentUser {
+            } else if sessionManager.needsProfileCompletion, let session = sessionManager.currentSession {
+                // Google OAuth user needs to complete their profile
+                NavigationStack {
+                    GoogleProfileCompletionView(session: session)
+                }
+            } else if sessionManager.isLoggedIn {
                 // User is logged in, show the main app content
-                // We wrap HomeView in its own NavigationView for proper titles and logout buttons
-                NavigationView {
-                    HomeView(user: user)
+                NavigationStack {
+                    HomeView()
                 }
             } else {
                 // User is not logged in, show the welcome/onboarding flow
-                // Use NavigationStack for modern navigation
                 NavigationStack {
                     WelcomeView()
                 }
@@ -36,9 +39,10 @@ struct ContentView: View {
 struct LoadingView: View {
     var body: some View {
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
+            // Use the primary background color of the current color scheme
+            Color.primary.opacity(0.1).edgesIgnoringSafeArea(.all)
+            
             VStack {
-                // Use a system image as a placeholder for the logo
                 Image(systemName: "building.columns.fill")
                     .font(.system(size: 80))
                     .foregroundColor(.blue)
@@ -51,8 +55,7 @@ struct LoadingView: View {
     }
 }
 
-
 #Preview {
     ContentView()
-        .environmentObject(SessionManager()) // Add for preview
+        .environmentObject(SessionManager())
 }

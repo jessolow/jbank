@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ADDADB802E4F892200178CD0 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = ADDADB362E4F56A100178CD0 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		ADDADB192E4F556500178CD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADDADB802E4F892200178CD0 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = jbank;
 			packageProductDependencies = (
+				ADDADB362E4F56A100178CD0 /* Supabase */,
 			);
 			productName = jbank;
 			productReference = ADDADB0A2E4F556400178CD0 /* jbank.app */;
@@ -396,6 +402,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleURLName = jbank;
+				INFOPLIST_KEY_CFBundleURLSchemes = jbank;
+				INFOPLIST_KEY_CFBundleURLTypes = "$(INFOPLIST_KEY_CFBundleURLTypes)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -433,6 +442,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleURLName = jbank;
+				INFOPLIST_KEY_CFBundleURLSchemes = jbank;
+				INFOPLIST_KEY_CFBundleURLTypes = "$(INFOPLIST_KEY_CFBundleURLTypes)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -597,6 +609,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ADDADB362E4F56A100178CD0 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADDADB352E4F569F00178CD0 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ADDADB022E4F556400178CD0 /* Project object */;
 }
