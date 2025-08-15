@@ -1,0 +1,132 @@
+{
+  "passed": 20,
+  "failed": 1,
+  "tests": [
+    {
+      "name": "Edge Function: profile (GET)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:12.071Z"
+    },
+    {
+      "name": "Edge Function: ledgerPostings (POST)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:12.283Z"
+    },
+    {
+      "name": "Edge Function: ledgerTransferInternal (POST)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:12.520Z"
+    },
+    {
+      "name": "Edge Function: depositsCreate (POST)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:12.701Z"
+    },
+    {
+      "name": "Edge Function: lendingCreateLoc (POST)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:12.890Z"
+    },
+    {
+      "name": "Edge Function: lendingCreateLoan (POST)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:13.130Z"
+    },
+    {
+      "name": "Edge Function: loansAccrueInterest (POST)",
+      "passed": true,
+      "details": "Status: 200 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:13.267Z"
+    },
+    {
+      "name": "Edge Function: loansMatureDue (POST)",
+      "passed": true,
+      "details": "Status: 200 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:13.390Z"
+    },
+    {
+      "name": "Edge Function: loansAgingOverdue (POST)",
+      "passed": false,
+      "details": "Status: 500 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:13.562Z"
+    },
+    {
+      "name": "Edge Function: historyGet (GET)",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:35:13.779Z"
+    },
+    {
+      "name": "Customer Profile - Auth Required",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401)",
+      "timestamp": "2025-08-15T21:35:14.081Z"
+    },
+    {
+      "name": "Customer Profile - Error Message",
+      "passed": true,
+      "details": "Error: Invalid or expired token",
+      "timestamp": "2025-08-15T21:35:14.084Z"
+    },
+    {
+      "name": "Core Ledger - Auth Required",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401)",
+      "timestamp": "2025-08-15T21:35:14.239Z"
+    },
+    {
+      "name": "Deposit Create - Auth Required",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401)",
+      "timestamp": "2025-08-15T21:35:14.407Z"
+    },
+    {
+      "name": "Lending LoC - Auth Required",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401)",
+      "timestamp": "2025-08-15T21:35:14.587Z"
+    },
+    {
+      "name": "History Get - Auth Required",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401)",
+      "timestamp": "2025-08-15T21:35:14.651Z"
+    },
+    {
+      "name": "Scheduled Function: loansAccrueInterest",
+      "passed": true,
+      "details": "Status: 200 (Expected: 401, 200, or 500)",
+      "timestamp": "2025-08-15T21:35:14.759Z"
+    },
+    {
+      "name": "Scheduled Function: loansMatureDue",
+      "passed": true,
+      "details": "Status: 200 (Expected: 401, 200, or 500)",
+      "timestamp": "2025-08-15T21:35:14.909Z"
+    },
+    {
+      "name": "Scheduled Function: loansAgingOverdue",
+      "passed": true,
+      "details": "Status: 500 (Expected: 401, 200, or 500)",
+      "timestamp": "2025-08-15T21:35:15.097Z"
+    },
+    {
+      "name": "API Response - Error Format",
+      "passed": true,
+      "details": "Response: {\"error\":\"Invalid or expired token\"}",
+      "timestamp": "2025-08-15T21:35:15.260Z"
+    },
+    {
+      "name": "CORS Support",
+      "passed": true,
+      "details": "CORS Header: *",
+      "timestamp": "2025-08-15T21:35:15.388Z"
+    }
+  ]
+}

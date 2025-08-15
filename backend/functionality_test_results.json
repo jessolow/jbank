@@ -1,0 +1,144 @@
+{
+  "passed": 11,
+  "failed": 12,
+  "tests": [
+    {
+      "name": "Customer Profile Table Access",
+      "passed": true,
+      "details": "Table accessible",
+      "timestamp": "2025-08-15T21:38:25.890Z"
+    },
+    {
+      "name": "Customer Profile Structure",
+      "passed": true,
+      "details": "Correct columns accessible",
+      "timestamp": "2025-08-15T21:38:25.970Z"
+    },
+    {
+      "name": "Ledger Table: ledger_accounts",
+      "passed": true,
+      "details": "Table accessible",
+      "timestamp": "2025-08-15T21:38:26.018Z"
+    },
+    {
+      "name": "Ledger Table: ledger_transactions",
+      "passed": true,
+      "details": "Table accessible",
+      "timestamp": "2025-08-15T21:38:26.065Z"
+    },
+    {
+      "name": "Ledger Table: ledger_entries",
+      "passed": true,
+      "details": "Table accessible",
+      "timestamp": "2025-08-15T21:38:26.116Z"
+    },
+    {
+      "name": "Deposit Core Table",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.deposit_core.deposit_accounts' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.153Z"
+    },
+    {
+      "name": "Lending Table: lending_core.loc_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.loc_accounts' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.192Z"
+    },
+    {
+      "name": "Lending Table: lending_core.term_loans",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.term_loans' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.233Z"
+    },
+    {
+      "name": "Lending Table: lending_core.repayment_schedule",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.repayment_schedule' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.262Z"
+    },
+    {
+      "name": "Lending Table: lending_core.loan_loc_mapping",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.loan_loc_mapping' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.317Z"
+    },
+    {
+      "name": "History Events Table",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.history.events' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.355Z"
+    },
+    {
+      "name": "View: account_balances",
+      "passed": true,
+      "details": "View accessible",
+      "timestamp": "2025-08-15T21:38:26.398Z"
+    },
+    {
+      "name": "View: lending_core.loc_exposure",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.loc_exposure' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.423Z"
+    },
+    {
+      "name": "View: lending_core.loan_ledger_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.lending_core.loan_ledger_accounts' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.465Z"
+    },
+    {
+      "name": "View: history.timeline_by_customer",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.history.timeline_by_customer' in the schema cache",
+      "timestamp": "2025-08-15T21:38:26.511Z"
+    },
+    {
+      "name": "RPC: get_or_create_profile",
+      "passed": false,
+      "details": "Error: column reference \"user_id\" is ambiguous",
+      "timestamp": "2025-08-15T21:38:26.556Z"
+    },
+    {
+      "name": "Basic Insert/Delete Operations",
+      "passed": false,
+      "details": "Error: insert or update on table \"customer_profile\" violates foreign key constraint \"customer_profile_user_id_fkey\"",
+      "timestamp": "2025-08-15T21:38:26.604Z"
+    },
+    {
+      "name": "Edge Function: profile",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:38:26.816Z"
+    },
+    {
+      "name": "Edge Function: ledgerPostings",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:38:26.938Z"
+    },
+    {
+      "name": "Edge Function: depositsCreate",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:38:27.036Z"
+    },
+    {
+      "name": "Edge Function: lendingCreateLoc",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:38:27.138Z"
+    },
+    {
+      "name": "Edge Function: historyGet",
+      "passed": true,
+      "details": "Status: 401 (Expected: 401 for auth required)",
+      "timestamp": "2025-08-15T21:38:27.252Z"
+    },
+    {
+      "name": "Security: Anonymous Access Blocked",
+      "passed": null,
+      "details": "Unexpected result: undefined",
+      "timestamp": "2025-08-15T21:38:27.298Z"
+    }
+  ]
+}

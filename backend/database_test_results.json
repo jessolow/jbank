@@ -1,0 +1,186 @@
+{
+  "passed": 1,
+  "failed": 29,
+  "tests": [
+    {
+      "name": "Schema: public",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.schemata' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.591Z"
+    },
+    {
+      "name": "Schema: deposit_core",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.schemata' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.644Z"
+    },
+    {
+      "name": "Schema: lending_core",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.schemata' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.704Z"
+    },
+    {
+      "name": "Schema: history",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.schemata' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.738Z"
+    },
+    {
+      "name": "Table: public.customer_profile",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.789Z"
+    },
+    {
+      "name": "Table: deposit_core.deposit_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.825Z"
+    },
+    {
+      "name": "Table: lending_core.loc_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.864Z"
+    },
+    {
+      "name": "Table: lending_core.term_loans",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.901Z"
+    },
+    {
+      "name": "Table: lending_core.repayment_schedule",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.948Z"
+    },
+    {
+      "name": "Table: lending_core.loan_loc_mapping",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:42.989Z"
+    },
+    {
+      "name": "Table: history.events",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.tables' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.019Z"
+    },
+    {
+      "name": "View: public.account_balances",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.views' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.071Z"
+    },
+    {
+      "name": "View: lending_core.loc_exposure",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.views' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.113Z"
+    },
+    {
+      "name": "View: lending_core.loan_ledger_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.views' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.169Z"
+    },
+    {
+      "name": "View: history.timeline_by_customer",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.views' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.205Z"
+    },
+    {
+      "name": "Function: public.get_or_create_profile()",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.routines' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.235Z"
+    },
+    {
+      "name": "Function: public.post_balanced_transaction()",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.routines' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.276Z"
+    },
+    {
+      "name": "Function: public.has_service_role()",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.routines' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.315Z"
+    },
+    {
+      "name": "Function: history.add_event()",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.routines' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.345Z"
+    },
+    {
+      "name": "RLS on public.customer_profile",
+      "passed": false,
+      "details": "RLS disabled or not found",
+      "timestamp": "2025-08-15T21:36:43.374Z"
+    },
+    {
+      "name": "RLS on deposit_core.deposit_accounts",
+      "passed": false,
+      "details": "RLS disabled or not found",
+      "timestamp": "2025-08-15T21:36:43.401Z"
+    },
+    {
+      "name": "RLS on lending_core.loc_accounts",
+      "passed": false,
+      "details": "RLS disabled or not found",
+      "timestamp": "2025-08-15T21:36:43.440Z"
+    },
+    {
+      "name": "RLS on lending_core.term_loans",
+      "passed": false,
+      "details": "RLS disabled or not found",
+      "timestamp": "2025-08-15T21:36:43.475Z"
+    },
+    {
+      "name": "RLS on lending_core.repayment_schedule",
+      "passed": false,
+      "details": "RLS disabled or not found",
+      "timestamp": "2025-08-15T21:36:43.502Z"
+    },
+    {
+      "name": "Trigger: deposit_core.create_ledger_account",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.triggers' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.538Z"
+    },
+    {
+      "name": "Trigger: lending_core.create_loan_ledger_accounts",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.information_schema.triggers' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.571Z"
+    },
+    {
+      "name": "Index: public.customer_profile.idx_customer_profile_user_id",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.pg_indexes' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.599Z"
+    },
+    {
+      "name": "Index: history.events.idx_events_occurred_at",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.pg_indexes' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.637Z"
+    },
+    {
+      "name": "Index: history.events.idx_events_event_type",
+      "passed": false,
+      "details": "Error: Could not find the table 'public.pg_indexes' in the schema cache",
+      "timestamp": "2025-08-15T21:36:43.666Z"
+    },
+    {
+      "name": "Data Access: customer_profile",
+      "passed": true,
+      "details": "Can query table",
+      "timestamp": "2025-08-15T21:36:43.750Z"
+    }
+  ]
+}

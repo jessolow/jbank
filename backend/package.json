@@ -11,6 +11,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@sendgrid/mail": "^8.1.5"
+    "@sendgrid/mail": "^8.1.5",
+    "@supabase/supabase-js": "^2.55.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
   }
 }
