@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+xcuserdata/
+
+# Supabase
+.supabase/
+.env
+*.db
+
+# Node / Edge Functions
+node_modules/
+
+# SwiftPM
+Packages/
+Package.resolved
