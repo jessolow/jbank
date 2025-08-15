@@ -228,4 +228,31 @@ class SupabaseManager: ObservableObject {
         
         return LoyaltyData.mock
     }
+    
+    @MainActor
+    func fetchHomeData() async throws -> HomeData {
+        print("[SupabaseManager] Fetching home data...")
+        
+        // For now, return fresh mock data each time to demonstrate refresh functionality
+        // Later this will fetch from Supabase backend
+        // let response: HomeData = try await client.functions
+        //     .invoke("fetch-home-data", options: FunctionInvokeOptions(body: EmptyRequest()))
+        
+        // Simulate network delay for realistic refresh experience
+        try await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+        
+        // Generate fresh mock data with current timestamp
+        return HomeData(
+            totalBalance: "$\(Double.random(in: 10000...20000).rounded(to: 2))",
+            availableCredit: "$\(Double.random(in: 5000...15000).rounded(to: 2))",
+            recentTransactions: [
+                HomeTransaction(id: "1", title: "Salary Deposit", amount: "+$\(Double.random(in: 3000...6000).rounded(to: 2))", date: "Today", type: HomeTransactionType.credit),
+                HomeTransaction(id: "2", title: "Grocery Store", amount: "-$\(Double.random(in: 50...200).rounded(to: 2))", date: "Today", type: HomeTransactionType.debit),
+                HomeTransaction(id: "3", title: "Gas Station", amount: "-$\(Double.random(in: 30...80).rounded(to: 2))", date: "Yesterday", type: HomeTransactionType.debit),
+                HomeTransaction(id: "4", title: "Interest Payment", amount: "+$\(Double.random(in: 20...50).rounded(to: 2))", date: "Yesterday", type: HomeTransactionType.credit),
+                HomeTransaction(id: "5", title: "Restaurant", amount: "-$\(Double.random(in: 40...120).rounded(to: 2))", date: "2 days ago", type: HomeTransactionType.debit)
+            ],
+            lastUpdated: Date()
+        )
+    }
 }

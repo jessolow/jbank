@@ -108,7 +108,43 @@ struct LoyaltyActivity: Codable {
     let date: String
 }
 
+// MARK: - Home Data Models
+struct HomeData: Codable {
+    let totalBalance: String
+    let availableCredit: String
+    let recentTransactions: [HomeTransaction]
+    let lastUpdated: Date
+}
+
+struct HomeTransaction: Codable {
+    let id: String
+    let title: String
+    let amount: String
+    let date: String
+    let type: HomeTransactionType
+}
+
+enum HomeTransactionType: String, Codable, CaseIterable {
+    case credit = "Credit"
+    case debit = "Debit"
+}
+
 // MARK: - Mock Data for Development
+extension HomeData {
+    static let mock = HomeData(
+        totalBalance: "$12,450.67",
+        availableCredit: "$8,500.00",
+        recentTransactions: [
+            HomeTransaction(id: "1", title: "Salary Deposit", amount: "+$5,000.00", date: "Today", type: HomeTransactionType.credit),
+            HomeTransaction(id: "2", title: "Grocery Store", amount: "-$85.50", date: "Today", type: HomeTransactionType.debit),
+            HomeTransaction(id: "3", title: "Gas Station", amount: "-$45.00", date: "Yesterday", type: HomeTransactionType.debit),
+            HomeTransaction(id: "4", title: "Interest Payment", amount: "+$25.94", date: "Yesterday", type: HomeTransactionType.credit),
+            HomeTransaction(id: "5", title: "Restaurant", amount: "-$65.75", date: "2 days ago", type: HomeTransactionType.debit)
+        ],
+        lastUpdated: Date()
+    )
+}
+
 extension SavingsData {
     static let mock = SavingsData(
         currentBalance: 12450.67,

@@ -25,7 +25,7 @@ struct WelcomeView: View {
                         )
                     )
                 
-                Text("Welcome to jBank")
+                Text("Welcome to Jesse's Bank")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
