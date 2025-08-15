@@ -111,16 +111,14 @@ struct WelcomeView: View {
             
             Spacer()
             
-            // Hidden NavigationLinks to control the flow
-            NavigationLink(
-                destination: CreateAccountView(email: email),
-                isActive: $navigateToCreateAccount
-            ) { EmptyView() }
-            
-            NavigationLink(
-                destination: PendingMagicLinkView(email: email),
-                isActive: $navigateToPending
-            ) { EmptyView() }
+                                // Hidden NavigationLinks to control the flow
+                    NavigationLink(destination: CreateAccountView(email: email), isActive: $navigateToCreateAccount) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: PendingMagicLinkView(email: email), isActive: $navigateToPending) {
+                        EmptyView()
+                    }
         }
         .padding(.top, 60)
         .alert(isPresented: $showError) {

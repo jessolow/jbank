@@ -173,7 +173,7 @@ class SupabaseManager: ObservableObject {
                 print("Successfully authenticated user via deep link")
             } catch {
                 print("Deep link login failed: \(error.localizedDescription)")
-                await sessionManager.setToLoggedOut()
+                sessionManager.setToLoggedOut()
             }
         }
     }
@@ -181,5 +181,51 @@ class SupabaseManager: ObservableObject {
     @MainActor
     func getCurrentSession() async -> Session? {
         return try? await client.auth.session
+    }
+    
+    // MARK: - Banking Data Fetching
+    
+    @MainActor
+    func fetchSavingsData() async throws -> SavingsData {
+        print("[SupabaseManager] Fetching savings data...")
+        
+        // For now, return mock data. Later this will fetch from Supabase backend
+        // let response: SavingsData = try await client.functions
+        //     .invoke("fetch-savings-data", options: FunctionInvokeOptions(body: EmptyRequest()))
+        
+        return SavingsData.mock
+    }
+    
+    @MainActor
+    func fetchCreditData() async throws -> CreditData {
+        print("[SupabaseManager] Fetching credit data...")
+        
+        // For now, return mock data. Later this will fetch from Supabase backend
+        // let response: CreditData = try await client.functions
+        //     .invoke("fetch-credit-data", options: FunctionInvokeOptions(body: EmptyRequest()))
+        
+        return CreditData.mock
+    }
+    
+    @MainActor
+    func fetchLoansData() async throws -> [LoanData] {
+        print("[SupabaseManager] Fetching loans data...")
+        
+        // For now, return mock data. Later this will fetch from Supabase backend
+        // let response: [LoanData] = try await client.functions
+        //     .invoke("fetch-loans-data", options: FunctionInvokeOptions(body: EmptyRequest()))
+        
+        return LoanData.mock
+    }
+    
+    @MainActor
+    func fetchLoyaltyData() async throws -> LoyaltyData {
+        print("[SupabaseManager] Fetching loyalty data...")
+        
+        // For now, return mock data. Later this will fetch from Supabase backend
+        // let response: LoyaltyData = try await client.functions
+        //     .invoke("fetch-loyalty-data", options: FunctionInvokeOptions(body: EmptyRequest()))
+        
+        return LoyaltyData.mock
     }
 }

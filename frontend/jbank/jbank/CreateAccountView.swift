@@ -69,10 +69,10 @@ struct CreateAccountView: View {
             
             Spacer()
             
-            // Navigation
-            NavigationLink(destination: PendingMagicLinkView(email: email), isActive: $navigateToPending) {
-                EmptyView()
-            }
+                                // Navigation
+                    NavigationLink(destination: PendingMagicLinkView(email: email), isActive: $navigateToPending) {
+                        EmptyView()
+                    }
         }
         .padding(.top, 60)
         .navigationTitle("Account Details")
