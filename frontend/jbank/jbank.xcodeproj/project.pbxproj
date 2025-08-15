@@ -28,13 +28,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ADDADB0A2E4F556400178CD0 /* jbank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jbank.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADDADB0A2E4F556400178CD0 /* Jesse Bank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jesse Bank.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDADB182E4F556500178CD0 /* jbankTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jbankTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDADB222E4F556500178CD0 /* jbankUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jbankUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ADDADB0C2E4F556400178CD0 /* jbank */ = {
+		ADDADB0C2E4F556400178CD0 /* Jesse Bank */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = jbank;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 		ADDADB0B2E4F556400178CD0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ADDADB0A2E4F556400178CD0 /* jbank.app */,
+				ADDADB0A2E4F556400178CD0 /* Jesse Bank.app */,
 				ADDADB182E4F556500178CD0 /* jbankTests.xctest */,
 				ADDADB222E4F556500178CD0 /* jbankUITests.xctest */,
 			);
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ADDADB092E4F556400178CD0 /* jbank */ = {
+		ADDADB092E4F556400178CD0 /* Jesse Bank */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADDADB2C2E4F556500178CD0 /* Build configuration list for PBXNativeTarget "jbank" */;
+			buildConfigurationList = ADDADB2C2E4F556500178CD0 /* Build configuration list for PBXNativeTarget "Jesse Bank" */;
 			buildPhases = (
 				ADDADB062E4F556400178CD0 /* Sources */,
 				ADDADB072E4F556400178CD0 /* Frameworks */,
@@ -113,13 +113,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				ADDADB0C2E4F556400178CD0 /* jbank */,
+				ADDADB0C2E4F556400178CD0 /* Jesse Bank */,
 			);
-			name = jbank;
+			name = "Jesse Bank";
 			packageProductDependencies = (
 				ADDADB362E4F56A100178CD0 /* Supabase */,
 			);
-			productName = jbank;
+			productName = "Jesse Bank";
 			productReference = ADDADB0A2E4F556400178CD0 /* jbank.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -192,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ADDADB052E4F556400178CD0 /* Build configuration list for PBXProject "jbank" */;
+			buildConfigurationList = ADDADB052E4F556400178CD0 /* Build configuration list for PBXProject "Jesse Bank" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -209,7 +209,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ADDADB092E4F556400178CD0 /* jbank */,
+				ADDADB092E4F556400178CD0 /* Jesse Bank */,
 				ADDADB172E4F556500178CD0 /* jbankTests */,
 				ADDADB212E4F556500178CD0 /* jbankUITests */,
 			);
@@ -403,17 +403,17 @@
 				DEVELOPMENT_TEAM = NCJ8X78T53;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleURLName = jbank;
-				INFOPLIST_KEY_CFBundleURLSchemes = jbank;
+				INFOPLIST_KEY_CFBundleURLName = "Jesse Bank";
+				INFOPLIST_KEY_CFBundleURLSchemes = "Jesse Bank";
 				INFOPLIST_KEY_CFBundleURLTypes = "$(INFOPLIST_KEY_CFBundleURLTypes)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
@@ -421,7 +421,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jbank.jbank;
+				PRODUCT_BUNDLE_IDENTIFIER = jbank.jessebank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -444,8 +444,8 @@
 				DEVELOPMENT_TEAM = NCJ8X78T53;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleURLName = jbank;
-				INFOPLIST_KEY_CFBundleURLSchemes = jbank;
+				INFOPLIST_KEY_CFBundleURLName = "Jesse Bank";
+				INFOPLIST_KEY_CFBundleURLSchemes = "Jesse Bank";
 				INFOPLIST_KEY_CFBundleURLTypes = "$(INFOPLIST_KEY_CFBundleURLTypes)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -462,7 +462,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jbank.jbank;
+				PRODUCT_BUNDLE_IDENTIFIER = jbank.jessebank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -491,7 +491,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jbank.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/jbank";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jesse Bank.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Jesse Bank";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
@@ -513,7 +513,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jbank.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/jbank";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jesse Bank.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Jesse Bank";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
@@ -563,7 +563,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ADDADB052E4F556400178CD0 /* Build configuration list for PBXProject "jbank" */ = {
+		ADDADB052E4F556400178CD0 /* Build configuration list for PBXProject "Jesse Bank" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADDADB2A2E4F556500178CD0 /* Debug */,
@@ -572,7 +572,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADDADB2C2E4F556500178CD0 /* Build configuration list for PBXNativeTarget "jbank" */ = {
+		ADDADB2C2E4F556500178CD0 /* Build configuration list for PBXNativeTarget "Jesse Bank" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADDADB2D2E4F556500178CD0 /* Debug */,
