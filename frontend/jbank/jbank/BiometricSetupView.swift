@@ -2,9 +2,9 @@ import SwiftUI
 import LocalAuthentication
 
 struct BiometricSetupView: View {
-    let email: String
-    let firstName: String
-    let lastName: String
+    @EnvironmentObject var sessionManager: SessionManager // Access the session manager
+    let user: User
+    let sessionToken: String
     
     @State private var isLoading = false
     @State private var showError = false
@@ -120,11 +120,7 @@ struct BiometricSetupView: View {
         .navigationBarTitleDisplayMode(.inline)
         .background(
             NavigationLink(
-                destination: HomeView(
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName
-                ),
+                destination: HomeView(user: user),
                 isActive: $navigateToHome,
                 label: { EmptyView() }
             )
@@ -204,9 +200,18 @@ struct BiometricSetupView: View {
                 isLoading = false
                 
                 if success {
-                    // Biometric setup successful
-                    isSetupComplete = true
-                    showSuccess = true
+                    // Biometric setup successful, now save the session token
+                    // Use the consistent key "currentUser" so our SessionManager can find it
+                    let saveSuccess = KeychainManager.shared.save(token: sessionToken, for: user.email)
+                    
+                    if saveSuccess {
+                        // Finally, log the user in
+                        sessionManager.login(sessionToken: sessionToken, user: user)
+                    } else {
+                        // Handle failure to save the token
+                        errorMessage = "Biometric setup was successful, but we couldn't save your session. Please try logging in again."
+                        showError = true
+                    }
                 } else {
                     // Biometric setup failed
                     if let error = error {
@@ -221,8 +226,8 @@ struct BiometricSetupView: View {
     }
     
     private func skipBiometric() {
-        // Navigate directly to home screen
-        navigateToHome = true
+        // If the user skips, log them in without setting up biometrics
+        sessionManager.login(sessionToken: sessionToken, user: user)
     }
 }
 
@@ -261,9 +266,8 @@ struct BenefitRow: View {
 
 // Placeholder HomeView (we'll create this next)
 struct HomeView: View {
-    let email: String
-    let firstName: String
-    let lastName: String
+    @EnvironmentObject var sessionManager: SessionManager // For logout
+    let user: User // Receive the full user object
     
     var body: some View {
         VStack(spacing: 20) {
@@ -271,7 +275,7 @@ struct HomeView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("Hello, \(firstName)!")
+            Text("Hello, \(user.firstName)!")
                 .font(.title2)
                 .foregroundColor(.secondary)
             
@@ -281,19 +285,26 @@ struct HomeView: View {
                 .padding(.horizontal, 32)
             
             Spacer()
+            
+            Button("Log Out") {
+                sessionManager.logout()
+            }
+            .foregroundColor(.red)
+            .padding()
         }
         .padding(.top, 60)
         .navigationTitle("jBank")
         .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden(true) // Can't go back to setup
     }
 }
 
 #Preview {
-    NavigationView {
-        BiometricSetupView(
-            email: "user@example.com",
-            firstName: "John",
-            lastName: "Doe"
-        )
-    }
+    // The NavigationStack is now in ContentView, so we don't need it here for previews
+    let dummyUser = User(id: "123", email: "user@example.com", firstName: "John", lastName: "Doe", isVerified: true, createdAt: "", updatedAt: "")
+    BiometricSetupView(
+        user: dummyUser,
+        sessionToken: "dummy-session-token-for-preview" // Add dummy token
+    )
+    .environmentObject(SessionManager())
 }

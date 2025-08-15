@@ -90,27 +90,16 @@ struct WelcomeView: View {
         .padding(.bottom, 40)
         .navigationTitle("Welcome")
         .navigationBarHidden(true)
-        .background(
-            Group {
-                // Navigation to Registration (for new users)
-                NavigationLink(
-                    destination: RegistrationView(email: email),
-                    isActive: $navigateToRegistration,
-                    label: { EmptyView() }
-                )
-                
-                // Navigation to OTP (for existing users)
-                NavigationLink(
-                    destination: OTPVerificationView(
-                        email: email,
-                        firstName: "",
-                        lastName: ""
-                    ),
-                    isActive: $navigateToOTP,
-                    label: { EmptyView() }
-                )
-            }
-        )
+        .navigationDestination(isPresented: $navigateToRegistration) {
+            RegistrationView(email: email)
+        }
+        .navigationDestination(isPresented: $navigateToOTP) {
+            OTPVerificationView(
+                email: email,
+                firstName: "",
+                lastName: ""
+            )
+        }
         .alert("Error", isPresented: $showError) {
             Button("OK") { }
         } message: {
@@ -119,34 +108,46 @@ struct WelcomeView: View {
     }
     
     private func handleContinue() {
+        // Prevent accidental double taps
+        guard !isLoading else {
+            print("[DEBUG] Button tapped while already loading. Ignoring.")
+            return
+        }
+        
+        print("[DEBUG] handleContinue tapped.")
         guard isValidEmail(email) else {
             errorMessage = "Please enter a valid email address"
             showError = true
+            print("[DEBUG] Invalid email.")
             return
         }
         
         isLoading = true
+        print("[DEBUG] isLoading set to true. Starting Task.")
         
         Task {
             do {
-                // Generate OTP via Supabase
+                print("[DEBUG] Calling SupabaseManager.shared.generateOTP...")
                 let response = try await SupabaseManager.shared.generateOTP(
                     email: email,
                     firstName: nil,
                     lastName: nil
                 )
+                print("[DEBUG] Received response from Supabase: \(response)")
                 
                 await MainActor.run {
                     isLoading = false
+                    print("[DEBUG] isLoading set to false on main thread.")
                     
                     if response.isExistingUser {
-                        // Existing user - go directly to OTP verification
+                        print("[DEBUG] User is existing. Attempting to navigate to OTP screen.")
                         isExistingUser = true
                         navigateToOTP = true
                     } else {
-                        // New user - go to registration
+                        print("[DEBUG] User is new. Attempting to navigate to Registration screen.")
                         navigateToRegistration = true
                     }
+                    print("[DEBUG] State after setting navigation: navigateToOTP=\(navigateToOTP), navigateToRegistration=\(navigateToRegistration)")
                 }
                 
             } catch {
@@ -154,6 +155,7 @@ struct WelcomeView: View {
                     isLoading = false
                     errorMessage = error.localizedDescription
                     showError = true
+                    print("[DEBUG] Caught an error: \(error.localizedDescription)")
                 }
             }
         }
@@ -167,7 +169,6 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    NavigationView {
-        WelcomeView()
-    }
+    // The NavigationStack is now in ContentView, so we don't need it here for previews
+    WelcomeView()
 }

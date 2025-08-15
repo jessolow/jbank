@@ -124,17 +124,13 @@ struct RegistrationView: View {
         .padding(.bottom, 40)
         .navigationTitle("Registration")
         .navigationBarTitleDisplayMode(.inline)
-        .background(
-            NavigationLink(
-                destination: OTPVerificationView(
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName
-                ),
-                isActive: $navigateToOTP,
-                label: { EmptyView() }
+        .navigationDestination(isPresented: $navigateToOTP) {
+            OTPVerificationView(
+                email: email,
+                firstName: firstName,
+                lastName: lastName
             )
-        )
+        }
         .alert("Error", isPresented: $showError) {
             Button("OK") { }
         } message: {
@@ -143,6 +139,9 @@ struct RegistrationView: View {
     }
     
     private func handleSubmit() {
+        // Prevent accidental double taps
+        guard !isLoading else { return }
+        
         guard isValidInput() else { return }
         
         isLoading = true
@@ -208,7 +207,6 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    NavigationView {
-        RegistrationView(email: "user@example.com")
-    }
+    // The NavigationStack is now in ContentView, so we don't need it here for previews
+    RegistrationView(email: "test@example.com")
 }

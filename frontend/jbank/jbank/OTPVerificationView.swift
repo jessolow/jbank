@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct OTPVerificationView: View {
+    @EnvironmentObject var sessionManager: SessionManager // Access the session manager
     let email: String
     let firstName: String
     let lastName: String
@@ -14,6 +15,11 @@ struct OTPVerificationView: View {
     @State private var navigateToBiometric = false
     @State private var showSuccess = false
     @State private var successMessage = ""
+    @State private var verifiedSessionToken: String?
+    @State private var verifiedUser: User? // Store the verified user
+    
+    // 1. Add FocusState to manage which field is active
+    @FocusState private var focusedField: Int?
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -59,12 +65,13 @@ struct OTPVerificationView: View {
                         OTPTextField(
                             text: $otp[index],
                             index: index,
+                            isFocused: $focusedField, // Pass the binding with '$'
                             onCommit: {
-                                if index < 5 && !otp[index].isEmpty {
-                                    // Move to next field
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                        // Focus next field logic would go here
-                                    }
+                                if index < 5 {
+                                    focusedField = index + 1 // Move to next field
+                                } else {
+                                    focusedField = nil // All fields filled, dismiss keyboard
+                                    verifyOTP()
                                 }
                             }
                         )
@@ -134,17 +141,19 @@ struct OTPVerificationView: View {
         .padding(.bottom, 40)
         .navigationTitle("Verification")
         .navigationBarTitleDisplayMode(.inline)
-        .background(
-            NavigationLink(
-                destination: BiometricSetupView(
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName
-                ),
-                isActive: $navigateToBiometric,
-                label: { EmptyView() }
-            )
-        )
+        .navigationDestination(isPresented: $navigateToBiometric) {
+            // Ensure we have a user and token before navigating
+            if let user = verifiedUser, let token = verifiedSessionToken {
+                BiometricSetupView(
+                    user: user,
+                    sessionToken: token
+                )
+            }
+        }
+        .onAppear {
+            // 2. Set the initial focus to the first field when the view appears
+            focusedField = 0
+        }
         .onReceive(timer) { _ in
             if timeRemaining > 0 {
                 timeRemaining -= 1
@@ -159,7 +168,13 @@ struct OTPVerificationView: View {
         }
         .alert("Success!", isPresented: $showSuccess) {
             Button("Continue") {
-                navigateToBiometric = true
+                // Only navigate if we have a valid token
+                if verifiedSessionToken != nil {
+                    navigateToBiometric = true
+                } else {
+                    errorMessage = "Could not retrieve a valid session. Please try again."
+                    showError = true
+                }
             }
         } message: {
             Text(successMessage)
@@ -194,6 +209,10 @@ struct OTPVerificationView: View {
                     isLoading = false
                     
                     if response.success {
+                        // Save the user and token, then trigger the success alert
+                        self.verifiedUser = response.user
+                        self.verifiedSessionToken = response.sessionToken
+                        
                         successMessage = "Email verified successfully! Welcome to jBank, \(response.user.firstName)!"
                         showSuccess = true
                     } else {
@@ -252,6 +271,7 @@ struct OTPVerificationView: View {
 struct OTPTextField: View {
     @Binding var text: String
     let index: Int
+    @FocusState.Binding var isFocused: Int? // Receive the focus state
     let onCommit: () -> Void
     
     var body: some View {
@@ -263,19 +283,21 @@ struct OTPTextField: View {
             .frame(width: 50, height: 50)
             .background(Color.gray.opacity(0.1))
             .cornerRadius(8)
+            .focused($isFocused, equals: index) // Bind focus to this field's index
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(text.isEmpty ? Color.gray.opacity(0.3) : Color.blue, lineWidth: 2)
+                    .stroke(isFocused == index ? Color.blue : Color.gray.opacity(0.3), lineWidth: 2) // Highlight when focused
             )
             .onChange(of: text) { newValue in
                 // Limit to single digit
-                if newValue.count > 1 {
-                    text = String(newValue.prefix(1))
+                let filtered = newValue.filter { $0.isNumber }
+                if filtered.count > 1 {
+                    text = String(filtered.prefix(1))
+                } else {
+                    text = filtered
                 }
-                // Only allow numbers
-                text = newValue.filter { $0.isNumber }
                 
-                if !newValue.isEmpty {
+                if !text.isEmpty {
                     onCommit()
                 }
             }
@@ -283,11 +305,11 @@ struct OTPTextField: View {
 }
 
 #Preview {
-    NavigationView {
-        OTPVerificationView(
-            email: "user@example.com",
-            firstName: "John",
-            lastName: "Doe"
-        )
-    }
+    // The NavigationStack is now in ContentView, so we don't need it here for previews
+    OTPVerificationView(
+        email: "user@example.com",
+        firstName: "John",
+        lastName: "Doe"
+    )
+    .environmentObject(SessionManager()) // Add for preview
 }
